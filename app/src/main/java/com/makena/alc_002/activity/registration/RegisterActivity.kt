@@ -1,4 +1,4 @@
-package com.makena.alc_002.activities.registration
+package com.makena.alc_002.activity.registration
 
 import android.content.Intent
 import android.os.Bundle
@@ -82,6 +82,8 @@ class RegisterActivity: AppCompatActivity() {
                         this, "Unable to Register",
                         Toast.LENGTH_SHORT
                     ).show()
+                    Log.d(TAG, "onComplete: not successful: " + task.exception)
+
                 }
                 hideDialog()
 
@@ -89,7 +91,35 @@ class RegisterActivity: AppCompatActivity() {
             }
     }
 
+    fun registerWithGoogle(email: String, password: String) {
 
+        showDialog()
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful)
+
+                if (task.isSuccessful) {
+                    Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().currentUser!!.uid)
+
+                    FirebaseAuth.getInstance().signOut()
+
+                    //redirect the user to the login screen
+                    redirectLoginScreen()
+                }
+                else if (!task.isSuccessful) {
+                    Toast.makeText(
+                        this, "Unable to Register",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(TAG, "onComplete: not successful: " + task.exception)
+
+                }
+                hideDialog()
+
+                // ...
+            }
+    }
 
     private fun isValidDomain(email: String): Boolean {
         Log.d(TAG, "isValidDomain: verifying email has correct domain: $email")
@@ -104,7 +134,7 @@ class RegisterActivity: AppCompatActivity() {
     private fun redirectLoginScreen() {
         Log.d(TAG, "redirectLoginScreen: redirecting to login screen.")
 
-        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }

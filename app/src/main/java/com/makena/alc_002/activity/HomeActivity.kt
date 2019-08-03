@@ -1,8 +1,9 @@
-package com.makena.alc_002.activities.registration
+package com.makena.alc_002.activity
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView
 import com.makena.alc_002.R
 
 import kotlinx.android.synthetic.main.activity_home.*
@@ -10,8 +11,9 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_main)
+        setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
