@@ -1,5 +1,5 @@
+package com.makena.alc_002.activity.registration
 
-package com.makena.alc_002.activities.registration
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.makena.alc_002.R
-import inc.nyenjes.neuz.activities.registration.ResendVerificationDialog
+import com.makena.alc_002.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -95,13 +95,14 @@ class LoginActivity : AppCompatActivity() {
         mAuthListener = FirebaseAuth.AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                if (user.isEmailVerified()) {
+                // email verification - disabled user.isEmailVerified()
+                if (true) {
 
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Toast.makeText(this, "Authenticated with: " + user.getEmail(), Toast.LENGTH_SHORT)
                         .show();
 
-                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()

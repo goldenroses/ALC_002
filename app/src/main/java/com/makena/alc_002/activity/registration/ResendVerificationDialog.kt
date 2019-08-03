@@ -1,4 +1,4 @@
-package inc.nyenjes.neuz.activities.registration
+package com.makena.alc_002.activity.registration
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.dialog_resend_verification.*
 
 class ResendVerificationDialog: DialogFragment() {
 
-    private val TAG = "ResendVerificationDialo"
+    private val TAG = "ResendVerificationDialog"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)

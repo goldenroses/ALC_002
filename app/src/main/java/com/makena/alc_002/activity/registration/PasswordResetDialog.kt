@@ -1,4 +1,4 @@
-package com.makena.alc_002.activities.registration
+package com.makena.alc_002.activity.registration
 
 import android.os.Bundle
 import android.util.Log
