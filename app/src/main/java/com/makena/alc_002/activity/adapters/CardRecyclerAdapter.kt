@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -21,14 +20,14 @@ import com.squareup.picasso.Picasso
 import java.util.*
 
 class CardRecyclerAdapter : RecyclerView.Adapter<CardHolder>() {
-    private val TAG: String = "CardRecyclerAdapter"
+    val TAG: String = "CardRecyclerAdapter"
     var deals: ArrayList<Deal>? = FirebaseManager._deals
 
     init {
         FirebaseManager.openDbRef("traveldeals")
         val listener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                notifyDataSetChanged()
             }
 
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {
@@ -102,7 +101,7 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         FirebaseManager.openDbRef("traveldeals")
         val listener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("CardRecyclerAdapter", "issue occured")
             }
 
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {

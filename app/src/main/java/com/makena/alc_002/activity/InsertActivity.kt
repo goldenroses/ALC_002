@@ -71,6 +71,8 @@ class InsertActivity: AppCompatActivity() {
         } else {
             FirebaseManager._firebaseReference!!.child(deal!!.id!!).setValue(deal)
             backToList()
+            finish()
+
         }
     }
 
@@ -81,16 +83,18 @@ class InsertActivity: AppCompatActivity() {
         }
         FirebaseManager._firebaseReference!!.child(deal!!.id!!).removeValue()
         backToList()
+        finish()
     }
 
     fun backToList() {
         val intent: Intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menu = menuInflater.inflate(R.menu.menu_home, menu)
+        val menu = menuInflater.inflate(R.menu.menu_save, menu)
         return true
     }
 
@@ -99,6 +103,8 @@ class InsertActivity: AppCompatActivity() {
             R.id.action_delete -> {
                 deleteDeal()
                 backToList()
+                finish()
+
             }
         }
         return  true
