@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.makena.alc_002.R
 import com.makena.alc_002.activity.HomeActivity
+import com.makena.alc_002.activity.InsertActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -102,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Authenticated with: " + user.getEmail(), Toast.LENGTH_SHORT)
                         .show();
 
-                    val intent = Intent(this, HomeActivity::class.java)
+                    val intent = Intent(this, InsertActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()

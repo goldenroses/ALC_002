@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makena.alc_002.R
-import com.makena.alc_002.activity.HotelFragment
+import com.makena.alc_002.activity.InsertActivity
 import com.makena.alc_002.activity.models.Hotel
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -49,7 +49,7 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {
         itemView.setOnClickListener {
-            val intent: Intent = Intent(itemView.context, HotelFragment::class.java)
+            val intent: Intent = Intent(itemView.context, InsertActivity::class.java)
         }
     }
 
