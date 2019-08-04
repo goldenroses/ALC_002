@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makena.alc_002.R
 import com.makena.alc_002.activity.InsertActivity
-import com.makena.alc_002.activity.models.Hotel
+import com.makena.alc_002.activity.models.Deal
 import com.squareup.picasso.Picasso
 import java.util.*
 
 
 class CardRecyclerAdapter : RecyclerView.Adapter<CardHolder>() {
-    val hotels: ArrayList<Hotel> = ArrayList<Hotel>()
+    val deals: ArrayList<Deal> = ArrayList<Deal>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_holder, parent, false)
 
@@ -27,9 +27,9 @@ class CardRecyclerAdapter : RecyclerView.Adapter<CardHolder>() {
     }
 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
-        var currentItem = hotels[position]
-        holder.cardTitle.text = currentItem.hotelTitle
-        holder.cardDecription.text = currentItem.hotelDescription
+        var currentItem = deals[position]
+        holder.cardTitle.text = currentItem.dealTitle
+        holder.cardDecription.text = currentItem.dealDescription
         holder.upvote.text = currentItem.upvotes
         holder.downvote.text = currentItem.downvotes
 
@@ -53,7 +53,7 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
-    fun updateCurrentItems(item: Hotel) {
+    fun updateCurrentItems(item: Deal) {
 
         if(item.imageUrl != null) {
             Picasso.with(itemView.context).load(item.imageUrl)

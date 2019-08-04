@@ -1,8 +1,9 @@
 package com.makena.alc_002.activity.models
 
-class Hotel (
-    var hotelTitle: String? = null,
-    var hotelDescription: String? = null,
+data class Deal (
+    var dealTitle: String? = null,
+    var dealDescription: String? = null,
+    var dealPrice: String? = null,
     var imageUrl: String? = null,
     var upvotes: String? = null,
     var downvotes: String? = null
