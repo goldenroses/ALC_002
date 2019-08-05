@@ -66,6 +66,7 @@ class InsertActivity: AppCompatActivity() {
         if(deal!!.id == null) {
             FirebaseManager._firebaseReference!!.push().setValue(deal)
             backToList()
+            finish()
 
 
         } else {
@@ -91,7 +92,6 @@ class InsertActivity: AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menu = menuInflater.inflate(R.menu.menu_save, menu)

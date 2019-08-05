@@ -2,9 +2,12 @@ package com.makena.alc_002.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -13,6 +16,7 @@ import com.makena.alc_002.activity.adapters.CardRecyclerAdapter
 import com.makena.alc_002.activity.managers.FirebaseManager
 import com.makena.alc_002.activity.registration.LoginActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -30,13 +34,33 @@ class HomeActivity : AppCompatActivity() {
         _firebaseDb = FirebaseManager._firebaseDb
         _dbRefenrece = FirebaseManager._firebaseReference!!.child("traveldeals")
 
+        setAdminStuff()
+        showDialog()
+
         recycler!!.layoutManager = LinearLayoutManager(this)
         recycler!!.adapter = adapter
 
-        fab.setOnClickListener { view ->
-            val intent: Intent = Intent(this, InsertActivity::class.java)
-            startActivity(intent)
+        hideDialog()
+
+    }
+
+    fun setAdminStuff() {
+        if(FirebaseManager._user != null) {
+            FirebaseManager.isAdmin(FirebaseManager._user!!.uid)
+            //This is a bypass - To fix this with a more suitable solution
+            if(FirebaseManager._user!!.uid == "Wj6zFwdO2DcSOSbNsCOJHrJ40gP2") {
+                fab.isVisible = true
+                fab.setOnClickListener { view ->
+                    val intent: Intent = Intent(this, InsertActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            else {
+                Log.d(TAG, "Non admin logged in")
+            }
         }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,7 +84,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(FirebaseManager._authListener != null) FirebaseManager.attachListener()
+        if(FirebaseManager._authListener != null) {
+            FirebaseManager.attachListener()
+        }
 
     }
 
@@ -77,7 +103,21 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(FirebaseManager._authListener != null) FirebaseManager.attachListener()
+        setAdminStuff()
+        if(FirebaseManager._authListener != null) {
+            FirebaseManager.attachListener()
+        }
+    }
+
+    private fun showDialog() {
+        progressBarHome!!.setVisibility(View.VISIBLE);
+
+    }
+
+    private fun hideDialog() {
+        if (progressBar!!.getVisibility() == View.VISIBLE) {
+            progressBarHome.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
