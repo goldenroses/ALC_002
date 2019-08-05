@@ -115,7 +115,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun hideDialog() {
-        if (progressBar!!.getVisibility() == View.VISIBLE) {
+        if (progressBarHome!!.getVisibility() == View.VISIBLE) {
             progressBarHome.setVisibility(View.INVISIBLE);
         }
     }
