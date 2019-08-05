@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.dialog_resend_verification.*
 
 class ResendVerificationDialog: DialogFragment() {
 
-    private val TAG = "ResendVerificationDialog"
+    private val TAG = "ResendVerificationDialo"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
