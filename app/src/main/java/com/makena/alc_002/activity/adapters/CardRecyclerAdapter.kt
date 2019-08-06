@@ -145,7 +145,7 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun showImage(url: String) {
 
         if(url.isEmpty() == false) {
-            Picasso.with(itemView.context).load(url).resize(80, 80).centerCrop().into(imageLocation)
+            Picasso.with(itemView.context).load(url).resize(144, 144).centerCrop().into(imageLocation)
         }
     }
 

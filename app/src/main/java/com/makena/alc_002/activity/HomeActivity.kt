@@ -16,7 +16,6 @@ import com.makena.alc_002.activity.adapters.CardRecyclerAdapter
 import com.makena.alc_002.activity.managers.FirebaseManager
 import com.makena.alc_002.activity.registration.LoginActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_home.*
 
 class HomeActivity : AppCompatActivity() {

@@ -99,6 +99,7 @@ class InsertActivity: AppCompatActivity() {
 
                     }else {
                         Log.d("UPLOAD IMAGE", "failure!")
+                        Toast.makeText(imageView.context,"Image upload failed, try again", Toast.LENGTH_LONG).show()
 
                     }
                 }
