@@ -2,6 +2,8 @@ package com.makena.alc_002.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,11 +15,12 @@ import com.google.gson.Gson
 import com.makena.alc_002.activity.managers.FirebaseManager
 import com.makena.alc_002.activity.models.Deal
 import kotlinx.android.synthetic.main.insert_content.*
-import android.net.Uri
 import android.util.Log
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.makena.alc_002.R
+import com.squareup.picasso.Picasso
 
 
 class InsertActivity: AppCompatActivity() {
@@ -43,6 +46,7 @@ class InsertActivity: AppCompatActivity() {
         txtTitle.setText(deal!!.dealTitle)
         txtDescription.setText(deal!!.dealDescription)
         txtPrice.setText(deal!!.dealPrice)
+        if (deal!!.imageUrl != null){ showImage(deal!!.imageUrl!!)}
 
         setSupportActionBar(toolbar)
         toolbar.title = "Add Travel Deal"
@@ -65,25 +69,40 @@ class InsertActivity: AppCompatActivity() {
     }
 
     private fun clean() {
-
         txtTitle.text.clear()
         txtDescription.text.clear()
         txtPrice.text.clear()
+    }
 
+    fun showImage(url: String) {
+
+        if(url.isEmpty() == false) {
+            val width = Resources.getSystem().displayMetrics.widthPixels
+            Picasso.with(this).load(url).resize(width, width*2/3).centerCrop().into(imageView)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == PICTURE_RESULT_CODE && resultCode == Activity.RESULT_OK) {
-            Log.d("UPLOAD IMAGE", "PICTURE_RESULT_CODE : ${PICTURE_RESULT_CODE} : resultCode : ${resultCode}")
 
             val uri: Uri = data!!.data
             val storageReference: StorageReference = FirebaseManager._firebaseStorageReference!!.child(uri.lastPathSegment)
-            storageReference.putFile(uri).addOnSuccessListener {
-                val imageUrl = storageReference.downloadUrl.toString()
-                deal!!.imageUrl = imageUrl
-                Log.d("UPLOAD IMAGE", "Image Successfully uploaded: ${imageUrl}")
-            }
+            storageReference.putFile(uri).addOnSuccessListener(object: OnSuccessListener<UploadTask.TaskSnapshot> {
+                override fun onSuccess(taskSnapshot: UploadTask.TaskSnapshot?) {
+                    val downloadUri = taskSnapshot!!.storage.downloadUrl
+                    if(downloadUri.isSuccessful) {
+                        val downloadPath = downloadUri.result.toString()
+                        Log.d("UPLOAD IMAGE", "PICTURE_RESULT_CODE : ${PICTURE_RESULT_CODE} : resultCode : ${downloadPath}")
+                        deal!!.imageUrl = downloadPath
+                        showImage(downloadPath)
+
+                    }else {
+                        Log.d("UPLOAD IMAGE", "failure!")
+
+                    }
+                }
+            })
         }
 
     }

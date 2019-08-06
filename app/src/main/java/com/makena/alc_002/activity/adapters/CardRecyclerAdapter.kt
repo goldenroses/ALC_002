@@ -76,6 +76,7 @@ class CardRecyclerAdapter : RecyclerView.Adapter<CardHolder>() {
 
         holder.updateCurrentItems(currentItem)
     }
+
 }
 
 class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -133,10 +134,18 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         cardTitle.text = item.dealTitle
         cardDecription.text = item.dealDescription
         price.text = item.dealPrice
+        if(item.imageUrl != null) showImage(item.imageUrl!!)
         upvote.text = item.upvotes
         downvote.text = item.downvotes
         if(item.imageUrl != null) {
             Picasso.with(itemView.context).load(item.imageUrl).into(imageLocation)
+        }
+    }
+
+    fun showImage(url: String) {
+
+        if(url.isEmpty() == false) {
+            Picasso.with(itemView.context).load(url).resize(80, 80).centerCrop().into(imageLocation)
         }
     }
 
