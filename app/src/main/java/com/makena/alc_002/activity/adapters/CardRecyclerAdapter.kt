@@ -35,7 +35,7 @@ class CardRecyclerAdapter : RecyclerView.Adapter<CardHolder>() {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                notifyDataSetChanged()
             }
 
             override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
@@ -109,7 +109,7 @@ class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("onChildChanged", "i/child has been updated")
             }
 
             override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {

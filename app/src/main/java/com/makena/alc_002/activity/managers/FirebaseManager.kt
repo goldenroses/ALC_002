@@ -6,6 +6,8 @@ import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.makena.alc_002.activity.InsertActivity
 import com.makena.alc_002.activity.models.Deal
 import kotlinx.android.synthetic.main.activity_home.*
@@ -20,6 +22,8 @@ class FirebaseManager {
         var _firebaseAuth: FirebaseAuth? = null
         var _firebaseReference: DatabaseReference? = null
         var _firebaseManager: FirebaseManager? = null
+        var _firebaseStorage: FirebaseStorage? = null
+        var _firebaseStorageReference: StorageReference? = null
         var _user: FirebaseUser? = null
         var _authListener: FirebaseAuth.AuthStateListener? = null
 
@@ -30,15 +34,21 @@ class FirebaseManager {
                 _firebaseManager = FirebaseManager()
                 _firebaseDb = FirebaseDatabase.getInstance()
                 _firebaseAuth = FirebaseAuth.getInstance()
+                _firebaseStorage = FirebaseStorage.getInstance()
                 _user = FirebaseAuth.getInstance().currentUser
                 if (_user!=null) {
                     isAdmin(_user!!.uid)
                 }
+                connectStorage()
 
             }
             _deals = ArrayList<Deal>()
             _firebaseReference = _firebaseDb!!.reference.child(dbRef)
 
+        }
+
+        fun connectStorage() {
+           _firebaseStorageReference = _firebaseStorage!!.reference.child("deals_pictures")
         }
 
         fun isAdmin(uid: String) {
